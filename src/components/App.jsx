@@ -62,7 +62,7 @@ export class App extends React.Component {
   // =========Render=========
 
   render() {
-    const { contacts, filter, showModal } = this.state;
+    const { showModal } = this.state;
     // const { onAddingContacts, onFilterHandler, onDeleteHandler } = this;
 
     return (
