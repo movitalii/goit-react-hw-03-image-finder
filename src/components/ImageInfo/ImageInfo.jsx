@@ -38,9 +38,9 @@ export default class ImageInfo extends Component {
     render() {
         const { images, error, status } = this.state;
 
-        if (status === 'idle') {
-            return <div>Type your request</div>;
-        }
+        // if (status === 'idle') {
+        //     return <div>Type your request</div>;
+        // }
 
         if (status === 'pending') {
             return (
