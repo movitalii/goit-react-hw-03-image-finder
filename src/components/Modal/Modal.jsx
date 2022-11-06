@@ -28,8 +28,8 @@ export default class Modal extends Component {
 
   render() {
     return (
-    <div className={css.Modal__backdrop} onClick={this.handleBackdropClick}>
-        <div className={css.Modal__content}>{this.props.children}</div>
+    <div className={css.Overlay} onClick={this.handleBackdropClick}>
+        <div className={css.Modal}>{this.props.children}</div>
     </div>
     );
   }

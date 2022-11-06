@@ -7,12 +7,10 @@ import ImageInfo from './ImageInfo/ImageInfo';
 // import { Contacts } from './Contacts/Contacts';
 // import { Filter } from './Filter/Filter';
 // import Modal from './Modal/Modal';
-// import css from './App.module.css';
+import css from './App.module.css';
 
 export class App extends React.Component {
   state = {
-    images: null,
-    loading: false,
     imageName: '',
     // showModal: false,
   }; 
@@ -37,8 +35,7 @@ export class App extends React.Component {
     // const { showModal } = this.state;    
 
     return (      
-        <div>
-          {this.state.loading && <h1>Loading...</h1>}
+        <div className={css.App}>
           {this.state.images && (
             <div>Render gallery</div>
         )}
