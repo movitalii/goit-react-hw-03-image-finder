@@ -12,7 +12,7 @@ export default class Searchbar extends Component {
     };
 
     hendleSubmit = event => {
-        event.preventDefault();
+        event.preventDefault();        
 
         if (this.state.imageName.trim() === '') {
             toast.error('Input must not be empty!');

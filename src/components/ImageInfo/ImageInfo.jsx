@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import ImageErrorView from 'components/ImageErrorView/ImageErrorView';
 import ImageGallery from 'components/ImageGallery/ImageGallery';
+import Loader from 'components/Loader/Loader';
 // import css from './ImageInfo.module.css';
 
 export default class ImageInfo extends Component {
@@ -42,11 +43,19 @@ export default class ImageInfo extends Component {
         }
 
         if (status === 'pending') {
-            return <div>Loading...</div>;
+            return (
+                <>
+                    <Loader/>
+                </>
+            )
         }
 
         if (status === 'rejected') {            
-            return <ImageErrorView message={ error.message } />;
+            return (
+                <>
+                    <ImageErrorView message={error.message} />
+                </>                
+            );
         }
 
         if (status === 'resolved') {
