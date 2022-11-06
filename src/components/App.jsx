@@ -1,5 +1,9 @@
 import React from 'react';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Searchbar from './Searchbar/Searchbar';
+import ImageInfo from './ImageInfo/ImageInfo';
+
 // import { Contacts } from './Contacts/Contacts';
 // import { Filter } from './Filter/Filter';
 // import Modal from './Modal/Modal';
@@ -14,12 +18,7 @@ export class App extends React.Component {
   }; 
   
   componentDidMount() {
-    this.setState({loading: true})
-
-    fetch('https://pixabay.com/api/?q=cat&page=1&key=30062649-6c95f8a5f26546f2640c7031e&image_type=photo&orientation=horizontal&per_page=12')
-      .then(res => res.json())
-      .then(images => this.setState({ images }))
-      .finally(() => this.setState({loading: false}));
+    this.setState({loading: true})    
   }   
   
   handleSearchSubmit = imageName => {
@@ -43,7 +42,9 @@ export class App extends React.Component {
           {this.state.images && (
             <div>Render gallery</div>
         )}
-        <Searchbar onSubmit={ this.handleSearchSubmit } />        
+        <Searchbar onSubmit={this.handleSearchSubmit} /> 
+        <ImageInfo imageName={ this.state.imageName } />
+        <ToastContainer autoClose={3000} />
         </div>             
     );
   }
