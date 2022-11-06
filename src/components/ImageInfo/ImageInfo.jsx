@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import css from './ImageInfo.module.css';
+// import css from './ImageInfo.module.css';
 
 export default class ImageInfo extends Component {
     state = {
