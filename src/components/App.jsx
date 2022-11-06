@@ -1,85 +1,50 @@
 import React from 'react';
-// import { Form } from './Form/Form';
+import Searchbar from './Searchbar/Searchbar';
 // import { Contacts } from './Contacts/Contacts';
 // import { Filter } from './Filter/Filter';
-import Modal from './Modal/Modal';
+// import Modal from './Modal/Modal';
 // import css from './App.module.css';
 
 export class App extends React.Component {
   state = {
-    contacts: [],
-    filter: '',
-    showModal: false,
-  };  
+    images: null,
+    loading: false,
+    imageName: '',
+    // showModal: false,
+  }; 
+  
+  componentDidMount() {
+    this.setState({loading: true})
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   if (this.state.contacts !== prevState.contacts) {
-
-  //     localStorage.setItem('contacts', JSON.stringify(this.state.contacts))
-  //   }
-  // }
-
-  // componentDidMount() {
-  //   const contacts = localStorage.getItem('contacts');
-  //   const parsedContacts = JSON.parse(contacts);
-
-  //   if (parsedContacts) {
-  //     this.setState({contacts: parsedContacts})
-  //   }    
-  // }
-
-  // // ========Adding contacts=========
-  // onAddingContacts = newContact => {
-  //   const contacts = this.state.contacts;
-  //   contacts.find(contact => contact.name === newContact.name)
-  //     ? alert(`${newContact.name} is already in contacts`)
-  //     : this.setState(prevState => ({
-  //         contacts: [...prevState.contacts, newContact],
-  //       }));
-  // };
-
-  // // ===========Filter Contacts==============
-
-  // onFilterHandler = e => {
-  //   const { value } = e.currentTarget;
-  //   this.setState({ filter: value });
-  // };
-  // // ===========Delete Contacts==============
-  // onDeleteHandler = contactId => {
-  //   const notAid = contact => contact.id !== contactId;
-
-  //   const updatedList = this.state.contacts.filter(notAid);
-
-  //   this.setState({ contacts: updatedList });
-  // };
-
-  toggleModal = () => {
-    this.setState(({ showModal }) => ({
-      showModal: !showModal,
-    }));
+    fetch('https://pixabay.com/api/?q=cat&page=1&key=30062649-6c95f8a5f26546f2640c7031e&image_type=photo&orientation=horizontal&per_page=12')
+      .then(res => res.json())
+      .then(images => this.setState({ images }))
+      .finally(() => this.setState({loading: false}));
+  }   
+  
+  handleSearchSubmit = imageName => {
+    this.setState({ imageName });
   };
+
+  // toggleModal = () => {
+  //   this.setState(({ showModal }) => ({
+  //     showModal: !showModal,
+  //   }));
+  // };
 
   // =========Render=========
 
   render() {
-    const { showModal } = this.state;
-    // const { onAddingContacts, onFilterHandler, onDeleteHandler } = this;
+    // const { showModal } = this.state;    
 
-    return (
-      <>
-        <button type="button" onClick={this.toggleModal}>
-          Open Modal
-        </button>
-        {showModal && (
-          <Modal onClose={this.toggleModal}>
-            <h1>Hello!</h1>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus recusandae est dignissimos quos voluptatibus unde nisi, nihil aliquam cumque minima nam nostrum earum doloribus. Animi quaerat doloremque vel voluptatum sapiente.</p>
-            <button type="button" onClick={this.toggleModal}>
-              Close Modal
-            </button>
-          </Modal>
+    return (      
+        <div>
+          {this.state.loading && <h1>Loading...</h1>}
+          {this.state.images && (
+            <div>Render gallery</div>
         )}
-      </>
+        <Searchbar onSubmit={ this.handleSearchSubmit } />        
+        </div>             
     );
   }
 }
