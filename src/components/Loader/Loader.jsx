@@ -1,5 +1,6 @@
+import React from 'react';
+import { Blocks } from 'react-loader-spinner'
 import css from './Loader.module.css'
-import { Blocks } from  'react-loader-spinner'
 
 
 export default function Loader() {

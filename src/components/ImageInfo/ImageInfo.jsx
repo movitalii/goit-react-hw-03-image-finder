@@ -8,7 +8,8 @@ export default class ImageInfo extends Component {
     state = {
         images: null,
         error: null,
-        status: 'idle'
+        status: 'idle',
+        showModal: false,
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -34,6 +35,12 @@ export default class ImageInfo extends Component {
                 .catch(error => this.setState({ error, status: 'rejected' }));
         }
     }
+
+    onModalOpen = () => {
+    this.setState(({ showModal }) => ({
+      showModal: !showModal,
+    }));
+  };
 
     render() {
         const { images, error, status } = this.state;
@@ -61,7 +68,7 @@ export default class ImageInfo extends Component {
         if (status === 'resolved') {
             return (
                 <>
-                    <ImageGallery images={ images } />
+                    <ImageGallery gallery={ images } onModalOpen={this.onModalOpen}/>
                 </>
         );
         };                

@@ -1,14 +1,19 @@
+import React, { Component } from 'react';
 import css from './ImageGalleryItem.module.css'
 
 
-export default function ImageGalleryItem({ images }) {
-    return (
-        <>
-            {images.map(image =>(
-                <li className={css.ImageGalleryItem} key={image.id}>
-                    <img className={css.ImageGalleryItem__Image} src={image.webformatURL} alt={image.id} />
-                </li>    
-            ))}
-        </>        
-    )
-}
+export default class ImageGalleryItem extends Component {
+    render() {
+        const { id, webformatURL, largeImageURL, onGettingIms } = this.props;
+
+        return (
+            <li className={css.ImageGalleryItem} key={id}>
+                <img
+                    className={css.ImageGalleryItem__Image}
+                    src={webformatURL}
+                    alt={id}
+                />
+            </li>    
+    )}      
+    
+}    

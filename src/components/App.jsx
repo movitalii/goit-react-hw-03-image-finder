@@ -1,33 +1,27 @@
-import React from 'react';
+import { Component } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Searchbar from './Searchbar/Searchbar';
 import ImageInfo from './ImageInfo/ImageInfo';
+import ImageGallery from './ImageGallery/ImageGallery';
 
 // import { Contacts } from './Contacts/Contacts';
 // import { Filter } from './Filter/Filter';
 // import Modal from './Modal/Modal';
 import css from './App.module.css';
 
-export class App extends React.Component {
+export class App extends Component {
   state = {
-    imageName: '',
-    // showModal: false,
+    imageName: '',    
   }; 
   
-  componentDidMount() {
-    this.setState({loading: true})    
-  }   
+  // componentDidMount() {
+  //   this.setState({loading: true})    
+  // }   
   
   handleSearchSubmit = imageName => {
     this.setState({ imageName });
-  };
-
-  // toggleModal = () => {
-  //   this.setState(({ showModal }) => ({
-  //     showModal: !showModal,
-  //   }));
-  // };
+  };  
 
   // =========Render=========
 
@@ -36,11 +30,9 @@ export class App extends React.Component {
 
     return (      
         <div className={css.App}>
-          {this.state.images && (
-            <div>Render gallery</div>
-        )}
-        <Searchbar onSubmit={this.handleSearchSubmit} /> 
-        <ImageInfo imageName={ this.state.imageName } />
+          
+        <Searchbar onSubmit={this.handleSearchSubmit} />         
+        <ImageInfo imageName={this.state.imageName} />        
         <ToastContainer autoClose={3000} />
         </div>             
     );

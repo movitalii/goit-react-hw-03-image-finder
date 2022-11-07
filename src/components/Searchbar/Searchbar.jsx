@@ -1,4 +1,4 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 import css from './Searchbar.module.css';
 import { toast } from 'react-toastify';
 
@@ -15,7 +15,7 @@ export default class Searchbar extends Component {
         event.preventDefault();        
 
         if (this.state.imageName.trim() === '') {
-            toast.error('Input must not be empty!');
+            toast.warn('Input must not be empty!');
             return
         }
         this.props.onSubmit(this.state.imageName);
@@ -24,17 +24,17 @@ export default class Searchbar extends Component {
 
     render() {
         return (
-            <header class={css.searchbar}>
-                <form class={css.form} onSubmit={this.hendleSubmit}>
-                    <button type="submit" class={css.button}>
+            <header className={css.searchbar}>
+                <form className={css.form} onSubmit={this.hendleSubmit}>
+                    <button type="submit" className={css.button}>
                       {/* <span class={css.button__label}>Search</span> */}
                     </button>
 
                     <input
-                        class={css.input}
+                        className={css.input}
                         type="text"
-                        // autocomplete="off"
-                        // autofocus
+                        autoComplete="off"
+                        autoFocus
                         placeholder="Search images and photos"
                         value={this.state.imageName}
                         onChange={this.handleNameChange}
