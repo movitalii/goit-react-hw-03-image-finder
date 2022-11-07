@@ -3,7 +3,6 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Searchbar from './Searchbar/Searchbar';
 import ImageInfo from './ImageInfo/ImageInfo';
-import ImageGallery from './ImageGallery/ImageGallery';
 
 // import { Contacts } from './Contacts/Contacts';
 // import { Filter } from './Filter/Filter';
