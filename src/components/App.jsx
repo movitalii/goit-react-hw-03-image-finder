@@ -8,10 +8,6 @@ import ImageGallery from 'components/ImageGallery/ImageGallery';
 import Loader from 'components/Loader/Loader';
 import Modal from 'components/Modal/Modal';
 import { toast } from 'react-toastify';
-
-// import { Contacts } from './Contacts/Contacts';
-// import { Filter } from './Filter/Filter';
-// import Modal from './Modal/Modal';
 import css from './App.module.css';
 
 export class App extends Component {
@@ -25,10 +21,8 @@ export class App extends Component {
     largeImageURL: '',
   }; 
 
-  componentDidUpdate(prevProps, prevState) {
-        if (prevState.imageName !== this.state.imageName) {
-
-            this.setState({ status: 'pending' });
+  fetchImages() {
+    this.setState({ status: 'pending' });
 
             ApiFetch(this.state.imageName, this.state.page)
                 .then(response => { 
@@ -43,19 +37,29 @@ export class App extends Component {
                     this.setState({ images, status: 'resolved' })
                     return toast.error(`No pictures found with name ${this.state.imageName}`);
                   }
-                    this.setState({ images, status: 'resolved' })
+                    this.setState(prevState => ({ images: [...prevState.images, ...images], status: 'resolved' }))
                 })
                 .catch(error => this.setState({ error, status: 'rejected' }));
         }
-    }
+  
+
+  componentDidUpdate(prevProps, prevState) {
+    const { page } = this.state;
+
+    if (prevState.imageName !== this.state.imageName || prevState.page !== page) {
+      this.fetchImages();
+    };
+  };
   
   nextPageHandler = () => {
     this.setState(({ page }) => ({ page: page + 1 }));
   };
   
   handleSearchSubmit = imageName => {
-    this.setState({ imageName });
+    this.setState({ imageName, page: 1, images:[] });
   };  
+
+  // ============Modal methods============
 
   onModalOpen = largeImageURL => {
     this.toggleModal();
@@ -63,7 +67,7 @@ export class App extends Component {
       largeImageURL: largeImageURL,
     });
   };
-  // ============Modal methods============
+  
   toggleModal = () => {
     this.setState(({ showModal }) => ({
       showModal: !showModal,
@@ -76,20 +80,14 @@ export class App extends Component {
       const { images, error, status, showModal, largeImageURL } = this.state;       
       
        return (
-          <div className={css.App}>
-          
+        <div className={css.App}>          
           <Searchbar onSubmit={this.handleSearchSubmit} />
-        {showModal && 
-          <Modal
-            onClose={this.toggleModal}
-            largeImageUrl={largeImageURL}
-          />
-        }   
-        {status === 'pending' && <Loader/>}  
-        {status === 'resolved' && <ImageGallery gallery={images} onModalOpen={this.onModalOpen} />}
-        {status !== 'pending' && images.length > 11 && <Button onClick={this.nextPageHandler} />}
-        {error && toast.error(`Oops something went wrong. ${error.message}`)}
-        <ToastContainer autoClose={3000} />
+          {showModal && <Modal onClose={this.toggleModal} largeImageUrl={largeImageURL}/>}   
+          {status === 'pending' && <Loader/>}  
+          {images.length > 0 && <ImageGallery gallery={images} onModalOpen={this.onModalOpen} />}
+          {status !== 'pending' && images.length > 11 && <Button onClick={this.nextPageHandler} />}
+          {error && toast.error(`Oops something went wrong. ${error.message}`)}
+          <ToastContainer autoClose={3000} />
         </div> 
         );              
      
