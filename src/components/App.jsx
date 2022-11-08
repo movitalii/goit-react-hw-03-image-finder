@@ -34,12 +34,12 @@ export class App extends Component {
                 .then(data => {
                   const images = data.hits;
                   if (images.length === 0) {
-                    this.setState({ images, status: 'resolved' })
+                    this.setState({ images, status: 'idle' })
                     return toast.error(`No pictures found with name ${this.state.imageName}`);
                   }
-                    this.setState(prevState => ({ images: [...prevState.images, ...images], status: 'resolved' }))
+                    this.setState(prevState => ({ images: [...prevState.images, ...images], status: 'idle' }))
                 })
-                .catch(error => this.setState({ error, status: 'rejected' }));
+                .catch(error => this.setState({ error }));
         }
   
 
@@ -85,11 +85,10 @@ export class App extends Component {
           {showModal && <Modal onClose={this.toggleModal} largeImageUrl={largeImageURL}/>}   
           {status === 'pending' && <Loader/>}  
           {images.length > 0 && <ImageGallery gallery={images} onModalOpen={this.onModalOpen} />}
-          {status !== 'pending' && images.length > 11 && <Button onClick={this.nextPageHandler} />}
+          {images.length > 11 && <Button onClick={this.nextPageHandler} />}
           {error && toast.error(`Oops something went wrong. ${error.message}`)}
           <ToastContainer autoClose={3000} />
         </div> 
-        );              
-     
+        );           
   }
 }
