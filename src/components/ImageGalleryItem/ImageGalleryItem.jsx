@@ -4,16 +4,15 @@ import css from './ImageGalleryItem.module.css'
 
 export default class ImageGalleryItem extends Component {
     render() {
-        const { id, webformatURL } = this.props;
-
-        // don forget to add largeImageURL, onGettingIms 
+        const { id, webformatURL, largeImageURL, onGettingImage } = this.props;
 
         return (
             <li className={css.ImageGalleryItem} key={id}>
                 <img
                     className={css.ImageGalleryItem__Image}
                     src={webformatURL}
-                    alt={id}
+                    alt={id}                    
+                    onClick={() => onGettingImage(largeImageURL)}
                 />
             </li>    
     )}      

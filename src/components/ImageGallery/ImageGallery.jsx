@@ -10,7 +10,7 @@ export default function ImageGallery({ gallery, onModalOpen }) {
                 key={id}
                 webformatURL={webformatURL}
                 largeImageURL={largeImageURL}
-                onGettingIms={onModalOpen}
+                onGettingImage={onModalOpen}
             />
             ))}
         </ul>

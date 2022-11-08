@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
-// import { createPortal } from 'react-dom';
 import css from'./Modal.module.css';
-
-// const modalRoot = document.querySelector('#modal-root');
 
 export default class Modal extends Component {
   componentDidMount() {
