@@ -37,8 +37,9 @@ export class App extends Component {
                     this.setState({ images, status: 'idle' })
                     return toast.error(`No pictures found with name ${this.state.imageName}`);
                   }
-                    this.setState(prevState => ({ images: [...prevState.images, ...images], status: 'idle' }))
-                })
+                  
+                  this.setState(prevState => ({ images: [...prevState.images, ...images], status: 'idle' }))
+                  })
                 .catch(error => this.setState({ error }));
         }
   
@@ -46,7 +47,7 @@ export class App extends Component {
   componentDidUpdate(prevProps, prevState) {
     const { page } = this.state;
 
-    if (prevState.imageName !== this.state.imageName || prevState.page !== page) {
+    if (prevState.imageName !== this.state.imageName || prevState.page !== page ) {
       this.fetchImages();
     };
   };
@@ -77,7 +78,7 @@ export class App extends Component {
   // =========Render=========
 
     render() {
-      const { images, error, status, showModal, largeImageURL } = this.state;       
+      const { images, error, status, showModal, largeImageURL } = this.state;
       
        return (
         <div className={css.App}>          
@@ -85,7 +86,7 @@ export class App extends Component {
           {showModal && <Modal onClose={this.toggleModal} largeImageUrl={largeImageURL}/>}   
           {status === 'pending' && <Loader/>}  
           {images.length > 0 && <ImageGallery gallery={images} onModalOpen={this.onModalOpen} />}
-          {images.length > 11 && <Button onClick={this.nextPageHandler} />}
+          {status !== 'resolved' && images.length > 11 && <Button onClick={this.nextPageHandler} />}
           {error && toast.error(`Oops something went wrong. ${error.message}`)}
           <ToastContainer autoClose={3000} />
         </div> 
