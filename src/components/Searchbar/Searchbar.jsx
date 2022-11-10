@@ -19,7 +19,7 @@ export default class Searchbar extends Component {
             return
         }
         this.props.onSubmit(this.state.imageName);
-        this.setState({ imageName: '' });
+        // this.setState({ imageName: '' });
     };
 
     render() {
@@ -36,7 +36,7 @@ export default class Searchbar extends Component {
                         autoComplete="off"
                         autoFocus
                         placeholder="Search images and photos"
-                        value={this.state.imageName}
+                        // value={this.state.imageName}
                         onChange={this.handleNameChange}
                     />
                 </form>
